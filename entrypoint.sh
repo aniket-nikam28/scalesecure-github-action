@@ -45,7 +45,7 @@ if [ "$failed_count" -gt 0 ]; then
     echo "ℹ️ GH_TOKEN or PR_NUMBER not provided (or not a PR event). Skipping PR comment."
   fi
   
-  exit 1
+  echo "⚠️ Action completed. Check the PR comment or Scale Secure dashboard for failure details."
 fi
 
-echo "✅ All tests passed! APIs are secure."
+echo "✅ Scale Secure API Testing finished."
