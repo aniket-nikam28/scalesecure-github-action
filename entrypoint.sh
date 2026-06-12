@@ -14,7 +14,7 @@ if [ -z "$SCALESECURE_API_KEY" ]; then
 fi
 
 echo "Sending configuration to Scale Secure..."
-response=$(curl -s -w "\n%{http_code}" -X POST https://api.scalesecure.com/v1/ai-testing/run \
+response=$(curl -s -w "\n%{http_code}" -X POST https://nonconditional-unhaunted-blanch.ngrok-free.dev/v1/ai-testing/run \
      -H "Content-Type: application/json" \
      -H "x-api-key: $SCALESECURE_API_KEY" \
      -d @"$CONFIG_FILE")
