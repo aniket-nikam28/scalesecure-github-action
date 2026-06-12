@@ -37,8 +37,7 @@ if [ "$failed_count" -gt 0 ]; then
     echo "| Test Case | Expected | Actual | Reason |" >> pr_comment.md
     echo "|-----------|----------|--------|--------|" >> pr_comment.md
     
-    echo "$body" | jq -r '(if .mode == "multi" then (.apis[]?.result?.results[]?) else (.results[]?) end) | select(.status == "FAIL") | "| \(.name) | \(.expected) | \(.actual) | \(.fail_reason | gsub("\\|"; "-") | gsub("\n"; " ")) |"' >> pr_comment.md    
-    echo "Posting comment to Pull Request #$PR_NUMBER..."
+    echo "$body" | jq -r '(if .mode == "multi" then (.apis[]?.result?.results[]?) else (.results[]?) end) | select(.status == "FAIL") | "| \(.name) | \(.expected) | \(.actual) | \(.fail_reason | gsub("\\|"; "-") | gsub("[\\r\\n]+"; " ") | gsub("<"; "&lt;") | gsub(">"; "&gt;")) |"' >> pr_comment.md    echo "Posting comment to Pull Request #$PR_NUMBER..."
     gh pr comment "$PR_NUMBER" -F pr_comment.md || echo "⚠️ Failed to post PR comment. Ensure github-token has write permissions."
   else
     echo "ℹ️ GH_TOKEN or PR_NUMBER not provided (or not a PR event). Skipping PR comment."
