@@ -37,7 +37,7 @@ if [ "$failed_count" -gt 0 ]; then
     echo "| Test Case | Expected | Actual | Reason |" >> pr_comment.md
     echo "|-----------|----------|--------|--------|" >> pr_comment.md
     
-    echo "$body" | jq -r '.results[] | select(.status == "FAIL") | "| \(.name) | \(.expected) | \(.actual) | \(.fail_reason | gsub("\\\\|"; "-") | gsub("\\n"; " ")) |"' >> pr_comment.md
+    echo "$body" | jq -r '.results[] | select(.status == "FAIL") | "| \(.name) | \(.expected) | \(.actual) | \(.fail_reason | gsub("\\|"; "-") | gsub("\n"; " ")) |"' >> pr_comment.md   
     
     echo "Posting comment to Pull Request #$PR_NUMBER..."
     gh pr comment "$PR_NUMBER" -F pr_comment.md || echo "⚠️ Failed to post PR comment. Ensure github-token has write permissions."
